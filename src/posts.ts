@@ -7,12 +7,12 @@ import remarkFrontmatter from "remark-frontmatter";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
-import { Category } from "./app/types";
+import { TCategory } from "./app/types";
 export interface Post {
   slug: string;
   title: string;
   publishDate: string;
-  categories: Category[];
+  categories: TCategory[];
   content: string;
 }
 
@@ -47,9 +47,12 @@ export async function getPosts(): Promise<Post[]> {
         .use(remarkParse)
         .use(remarkRehype)
         .use(remarkFrontmatter, ["yaml", "toml"])
+        // @ts-expect-error fix
         .use(() => {
           return function (tree: Node) {
+            // @ts-expect-error fix
             const h1Metadata = tree.children.find((c) => c.tagName === "h1");
+            // @ts-expect-error fix
             title = h1Metadata.children.find((x) => x.type === "text").value;
           };
         })
@@ -76,7 +79,7 @@ export async function getPosts(): Promise<Post[]> {
 export async function getPostsByCategory({
   category,
 }: {
-  category: Category;
+  category: TCategory;
 }): Promise<Post[]> {
   const allPosts = await getPosts();
 
@@ -113,7 +116,7 @@ export async function getPaginatedPostsByCategory({
 }: {
   page: number;
   limit: number;
-  category: Category;
+  category: TCategory;
 }): Promise<{ posts: Post[]; total: number }> {
   const allCategoryPosts = await getPostsByCategory({ category });
 

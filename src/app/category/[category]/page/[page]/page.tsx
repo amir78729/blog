@@ -1,4 +1,5 @@
-import { Category, categories } from "@/categories";
+import { Categories } from "@/app/constants";
+import { TCategory } from "@/app/types";
 import Pagination from "@/components/Pagination";
 import { Posts } from "@/components/Posts/Posts";
 import {
@@ -11,7 +12,7 @@ import { notFound, redirect } from "next/navigation";
 export default async function Page({
   params,
 }: {
-  params: { category: Category; page: number };
+  params: { category: TCategory; page: number };
 }) {
   let { category, page } = params;
   page = Number(page);
@@ -47,7 +48,7 @@ export default async function Page({
 
 export async function generateStaticParams() {
   const paths = await Promise.all(
-    categories.map(async (category) => {
+    Object.values(Categories).map(async (category) => {
       const posts = await getPostsByCategory({ category });
       const pages = Math.ceil(posts.length / postsPerPage);
 

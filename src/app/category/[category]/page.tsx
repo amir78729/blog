@@ -1,4 +1,6 @@
-import { categories, type Category } from "@/categories";
+
+import { Categories } from "@/app/constants";
+import { TCategory } from "@/app/types";
 import Pagination from "@/components/Pagination";
 import { Posts } from "@/components/Posts/Posts";
 import { Button } from "@/components/ui/button";
@@ -11,12 +13,12 @@ import { notFound } from "next/navigation";
 export default async function Category({
   params,
 }: {
-  params: { category: Category };
+  params: { category: TCategory };
 }) {
   const { category } = params;
 
   // 404 if the category does not exist
-  if (categories.indexOf(category) == -1) notFound();
+  if (Object.values(Categories).indexOf(category) == -1) notFound();
 
   const { posts, total } = await getPaginatedPostsByCategory({
     category,
@@ -41,7 +43,7 @@ export default async function Category({
 }
 
 export function generateStaticParams() {
-  return categories.map((category) => ({
+  return Object.values(Categories).map((category) => ({
     category,
   }));
 }
