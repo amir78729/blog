@@ -1,5 +1,5 @@
-import { Pagination } from "@/components/pagination";
-import { Posts } from "@/components/posts";
+import Pagination from "@/components/Pagination";
+import { Posts } from "@/components/Posts/Posts";
 import { getPaginatedPosts, getPosts, postsPerPage } from "@/posts";
 import { notFound, redirect } from "next/navigation";
 
@@ -20,9 +20,8 @@ export default async function Page({ params }: { params: { page: number } }) {
 
   return (
     <main>
-      <h1>Next.js MDX Blog (Page {page})</h1>
+      <h1>Blog</h1>
       <Posts posts={posts} />
-
       <Pagination baseUrl="/page" page={page} perPage={postsPerPage} total={total} />
     </main>
   );

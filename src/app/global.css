@@ -1,4 +1,7 @@
-@import "tailwindcss";
+/* @import "tailwindcss/preflight"; */
+@tailwind utilities;
+/* @import "tailwindcss"; */
+
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -120,4 +123,126 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Customizing style */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--background);
+}
+#app {
+  max-width: 500px;
+  height: 100dvh;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 0 2rem;
+  line-height: 1.7;
+  position: relative;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem 2rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  max-width: 500px;
+  margin: auto;
+  /* backdrop-filter: blur(0.5rem); */
+  background-image: linear-gradient(
+    to bottom,
+    var(--background) 50%,
+    transparent
+  );
+  z-index: 100;
+  transition: background-image;
+}
+main {
+  flex: 1;
+  margin-top: 5rem;
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+#avatar,
+#avatar img {
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+}
+
+#breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#breadcrumb a {
+  color: unset;
+  text-decoration: none;
+}
+
+#zen-button {
+  display: flex;
+  align-items: center;
+  background: transparent;
+  border: none;
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+  transition: width 0.3s;
+  cursor: pointer;
+}
+#zen-button-icon {
+  padding: 0.25rem;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 0 20px 8px transparent;
+
+  transform: rotate(0);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+footer,
+#breadcrumb {
+  transition: opacity 0.3s;
+}
+
+.zen-mode footer,
+.zen-mode #breadcrumb,
+.zen-mode #zen-button-text {
+  opacity: 0;
+}
+.zen-mode header {
+  background-image: linear-gradient(0, transparent);
+}
+
+.zen-mode #zen-button-icon {
+  transform: rotate(90deg);
+  background: var(--background);
+  box-shadow: 0 0 20px 8px var(--background);
 }

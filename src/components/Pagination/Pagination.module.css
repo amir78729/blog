@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding-top: 2rem;
+}
+
+.item {
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  border: 1px solid #ccc;
+  border-radius: var(--radius-sm);
+  color: unset;
+}
+
+.pageList {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 0.5rem;
+}
+
+.current {
+  background-color: #eee;
+  cursor: default;
+  font-weight: bold;
+  color: var(--background);
+  cursor: not-allowed;
+  border-color: #eee;
+}

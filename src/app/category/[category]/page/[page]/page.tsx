@@ -1,6 +1,6 @@
 import { Category, categories } from "@/categories";
-import { Pagination } from "@/components/pagination";
-import { Posts } from "@/components/posts";
+import Pagination from "@/components/Pagination";
+import { Posts } from "@/components/Posts/Posts";
 import {
   getPaginatedPostsByCategory,
   getPostsByCategory,
