@@ -56,7 +56,7 @@ const AppProvider = ({ children }: Props) => {
                 </main>
 
                 <footer className="text-center">
-                    <small>© 2024 Amirhossein Alibakhshi. All rights reserved.</small>
+                    <small>© {new Date().getFullYear()} Amirhossein Alibakhshi. All rights reserved.</small>
                 </footer>
             </div>
         </ThemeProvider>
