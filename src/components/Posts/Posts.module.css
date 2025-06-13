@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  /* gap: 2rem; */
 }
 
 .card {
@@ -9,8 +9,11 @@
   text-decoration: none;
   padding: 1.5rem 1rem;
   border-radius: var(--radius);
+  background: transparent;
+  transition: transform 0.3s, background 0.3s;
+}
+.card:hover {
   background: var(--card);
-  transition: transform 0.3s;
 }
 
 .card h2 {
