@@ -59,7 +59,10 @@ export async function getPosts(): Promise<Post[]> {
         .use(rehypeStringify)
         .process(mdContent);
 
-      const metadata = await import(`./app/post/${name}/metadata.ts`);
+      const { default: metadata } = await import(
+        `./app/post/${name}/metadata.ts`
+      );
+
       return {
         slug: name,
         content: String(htmlContent),
