@@ -1,5 +1,5 @@
 'use client'
-import React, { useId } from "react"
+import React, { useEffect, useId } from "react"
 import { ThemeProvider } from "./ThemeProvider"
 import classNames from "classnames"
 import { usePathname } from "next/navigation"
@@ -9,16 +9,25 @@ type Props = {
     children: React.ReactNode
 }
 
-const AppProvider = ({ children }: Props) => {
 
+
+const AppProvider = ({ children }: Props) => {
     const [zenMode, setZenMode] = React.useState(false);
     const path = usePathname();
     const isMainPage = path === '/'
 
-
     const toggleZenMode = () => {
         setZenMode(z => !z)
     }
+
+    useEffect(() => {
+        if (process.env.NODE_ENV === 'production') {
+            const script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.innerHTML = `(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "ryxjupgqcu");`
+            document.head.appendChild(script)
+        }
+    }, [])
 
     const renderMobileHeader = () => (
         <header id='mobile-header'>
