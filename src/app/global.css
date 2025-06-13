@@ -10,7 +10,9 @@
   font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui,
     helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial,
     sans-serif;
-  --cta: #02b7ff;
+  --yellow: #cd7c3b;
+  --blue: #02b7ff;
+  --max-width: 600px;
   --radius: 0.625rem;
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
@@ -138,7 +140,7 @@ body {
   background: var(--background);
 }
 #app {
-  max-width: 500px;
+  max-width: var(--max-width);
   height: 100dvh;
   margin: auto;
   display: flex;
@@ -147,7 +149,7 @@ body {
   line-height: 1.7;
   position: relative;
 }
-header {
+#mobile-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -156,9 +158,8 @@ header {
   top: 0;
   left: 0;
   right: 0;
-  max-width: 500px;
+  max-width: var(--max-width);
   margin: auto;
-  /* backdrop-filter: blur(0.5rem); */
   background-image: linear-gradient(
     to bottom,
     var(--background) 50%,
@@ -167,6 +168,47 @@ header {
   z-index: 100;
   transition: background-image;
 }
+
+#desktop-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem 0;
+  justify-content: space-between;
+  position: fixed;
+  top: 5.5rem;
+  width: 4rem;
+  bottom: 5.5rem;
+  max-width: var(--max-width);
+  margin: auto;
+  transform: translateX(calc(-100% - 1rem));
+  z-index: 100;
+}
+#desktop-header #zen-button {
+  border-radius: 50%;
+  position: relative;
+  overflow: unset;
+}
+#desktop-header #zen-button #zen-button-icon {
+  background: transparent;
+}
+
+#desktop-header #zen-button-text {
+  position: absolute;
+  top: 50%;
+  width: max-content;
+  left: -0.5rem;
+  transform: translate(-100%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+#desktop-header #zen-button:hover #zen-button-text,
+#desktop-header #zen-button:focus-within #zen-button-text {
+  opacity: 1;
+}
+
 main {
   flex: 1;
   margin-top: 5rem;
@@ -201,7 +243,9 @@ footer {
   width: 2rem;
   border-radius: 50%;
 }
-
+#avatar {
+  background: var(--card);
+}
 #breadcrumb {
   display: flex;
   align-items: center;
@@ -227,10 +271,8 @@ footer {
 #zen-button-icon {
   padding: 0.25rem;
   border-radius: var(--radius-sm);
-  box-shadow: 0 0 20px 8px transparent;
-
   transform: rotate(0);
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: transform 0.3s;
 }
 
 footer,
@@ -250,7 +292,6 @@ footer,
 .zen-mode #zen-button-icon {
   transform: rotate(90deg);
   background: var(--background);
-  box-shadow: 0 0 20px 8px var(--background);
 }
 
 .chip-group {
@@ -277,9 +318,105 @@ button {
 a:focus-within,
 button:focus-within {
   outline-offset: 0.25rem;
-  outline-color: var(--cta);
+  outline-color: var(--blue);
 }
 
 a {
-  color: var(--cta);
+  color: var(--blue);
+}
+
+h1 {
+  line-height: 1.2;
+}
+
+figure {
+  margin-block-start: 3rem;
+  margin-block-end: 3rem;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+}
+img {
+  width: 100%;
+  border-radius: var(--radius);
+}
+figcaption {
+  text-align: center;
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+table {
+  width: 100%;
+  max-width: 100%;
+  overflow: auto;
+  display: table;
+  background: var(--card);
+  border-radius: var(--radius);
+}
+table * {
+  text-align: start;
+}
+
+tbody {
+  display: table-row-group;
+  vertical-align: middle;
+  unicode-bidi: isolate;
+}
+thead {
+  position: relative;
+}
+thead::after {
+  content: "";
+  height: 1px;
+  background: #fff3;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+td,
+th {
+  padding: 0.5rem 1.25rem;
+  margin: 0;
+}
+
+abbr {
+  cursor: help;
+}
+
+@media screen and (min-width: 768px) {
+  #mobile-header {
+    display: none;
+  }
+}
+@media screen and (max-width: 768px) {
+  #desktop-header {
+    display: none;
+  }
+
+  main {
+    margin-top: 6.5rem;
+  }
+}
+
+.skip-link {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--primary);
+  opacity: 0;
+}
+.skip-link:focus-within {
+  opacity: 1;
+}
+
+ul {
+  padding-inline-start: 1rem;
+}
+
+li::marker {
+  color: var(--yellow);
 }

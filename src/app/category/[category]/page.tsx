@@ -3,7 +3,6 @@ import { Categories } from "@/app/constants";
 import { TCategory } from "@/app/types";
 import Pagination from "@/components/Pagination";
 import { Posts } from "@/components/Posts/Posts";
-import { Button } from "@/components/ui/button";
 import {
   getPaginatedPostsByCategory,
   postsPerPage,
@@ -30,8 +29,6 @@ export default async function Category({
     <main>
       <h1>Category: {category}</h1>
       <Posts posts={posts} />
-      <Button>Click me</Button>
-
       <Pagination
         baseUrl={`/category/${category}/page`}
         page={1}

@@ -1,7 +1,5 @@
 import { readdir, readFile } from "fs/promises";
-
 import path from "path";
-import fs from "fs";
 import rehypeStringify from "rehype-stringify";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkParse from "remark-parse";
@@ -33,14 +31,8 @@ export async function getPosts(): Promise<Post[]> {
         name,
         "page.mdx"
       );
-      let publishDate;
+
       let title;
-      fs.stat(filePath, (err, stats) => {
-        if (err) {
-          throw err;
-        }
-        publishDate = stats.ctime;
-      });
 
       const mdContent = await readFile(filePath, "utf-8");
       const htmlContent = await unified()
@@ -66,9 +58,8 @@ export async function getPosts(): Promise<Post[]> {
       return {
         slug: name,
         content: String(htmlContent),
-        ...metadata,
-        publishDate,
         title,
+        ...metadata,
       };
     })
   );

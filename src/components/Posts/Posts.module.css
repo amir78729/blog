@@ -7,17 +7,27 @@
 .card {
   color: unset;
   text-decoration: none;
-  padding: 1.5rem 1rem;
+  padding: 1.5rem 1.5rem 1.5rem 0;
   border-radius: var(--radius);
+  overflow: hidden;
   background: transparent;
-  transition: transform 0.3s, background 0.3s;
+  transition: transform 0.3s, background-color 0.3s;
 }
 .card:hover {
   background: var(--card);
 }
 
+.car:hover > *,
+.card > * {
+  transition: transform 0.3s;
+}
+.card:hover > *,
+.card:focus-within > * {
+  transform: translateX(1.5rem);
+}
+
 .card h2 {
-  margin: 0 0 0.5rem;
+  margin: 0;
 }
 
 .date {

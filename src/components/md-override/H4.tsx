@@ -1,4 +1,5 @@
 import React from "react";
+import { LinkedHeading } from "../LinkedHeading";
 
 type Props = {
   children?: React.ReactNode
@@ -6,8 +7,6 @@ type Props = {
 
 export function H4({ children }: Props) {
   return (
-    <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
-      {children}
-    </h4>
+    <LinkedHeading><h4>{children}</h4></LinkedHeading>
   );
 }
