@@ -280,19 +280,20 @@ footer,
   transition: opacity 0.3s;
 }
 
-.zen-mode footer,
-.zen-mode #breadcrumb,
-.zen-mode #zen-button-text {
-  opacity: 0;
-}
-.zen-mode header {
-  background-image: linear-gradient(0, transparent);
+#back-link {
+    position: absolute;
+    top: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    transform: translateY(calc(-100% - 0.5rem));
+    color: #fff7;
+    opacity: 1;
+    transition: opacity 0.3;
 }
 
-.zen-mode #zen-button-icon {
-  transform: rotate(90deg);
-  background: var(--background);
-}
+
 
 .chip-group {
   display: flex;
@@ -419,4 +420,59 @@ ul {
 
 li::marker {
   color: var(--yellow);
+}
+
+.heading {
+  position: relative;
+}
+
+.heading .heading-link {
+  width: 0.75rem;
+  height: 0.75rem;
+  opacity: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s;
+}
+.heading .content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.heading:hover .heading-link,
+.heading-link:focus-within {
+  opacity: 1;
+}
+
+@media screen and (max-width: 768px) {
+  .heading .heading-link {
+    opacity: 1;
+  }
+}
+
+
+
+
+
+
+
+
+
+.zen-mode .heading .heading-link,
+.zen-mode footer,
+.zen-mode #back-link,
+.zen-mode #breadcrumb,
+.zen-mode #zen-button-text {
+  opacity: 0 !important;
+}
+.zen-mode header {
+  background-image: linear-gradient(0, transparent);
+}
+
+.zen-mode #zen-button-icon {
+  transform: rotate(90deg);
+  background: var(--background);
 }
