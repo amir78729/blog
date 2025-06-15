@@ -5,26 +5,26 @@ import remarkFrontmatter from "remark-frontmatter";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
-import { TCategory } from "./app/types";
-export interface Post {
+import { Metadata, TCategory } from "./app/types";
+
+export type TPost = Metadata & {
   slug: string;
   title: string;
-  publishDate: string;
-  categories: TCategory[];
   content: string;
 }
 
 export const postsPerPage = 5 as const;
 
-export async function getPosts(): Promise<Post[]> {
+export async function getPosts(): Promise<TPost[]> {
   // Retreive slugs from post routes
   const slugs = (
     await readdir("./src/app/post", { withFileTypes: true })
   ).filter((dirent) => dirent.isDirectory());
 
   // Retreive metadata from MDX files
-  const posts = await Promise.all(
-    slugs.map(async ({ name }) => {
+  const allPosts = await Promise.all(
+    slugs
+    .map(async ({ name }) => {
       const filePath = path.join(
         process.cwd(),
         "src/app/post",
@@ -65,21 +65,31 @@ export async function getPosts(): Promise<Post[]> {
   );
 
   // Sort posts from newest to oldest
-  posts.sort((a, b) => +new Date(b.publishDate) - +new Date(a.publishDate));
+  allPosts.sort((a, b) => +new Date(b.publishDate) - +new Date(a.publishDate));
 
-  return posts;
+  const filteredPosts = allPosts.filter(({isDraft}) => {
+    // All posts are visible in dev mode
+    if (process.env.NODE_ENV === 'development') {
+      return true;
+    }
+
+    // But in other envs, we should check if the post is not draft!
+    return !isDraft
+  })
+
+  return filteredPosts;
 }
 
 export async function getPostsByCategory({
   category,
 }: {
-  category: TCategory;
-}): Promise<Post[]> {
+  category: TCategory['id'];
+}): Promise<TPost[]> {
   const allPosts = await getPosts();
 
   // Filter posts by specified category
   const posts = allPosts.filter(
-    (post) => post.categories?.indexOf(category) !== -1
+    (post) => post.categories?.find(c => c.id === category)
   );
 
   return posts;
@@ -91,7 +101,7 @@ export async function getPaginatedPosts({
 }: {
   page: number;
   limit: number;
-}): Promise<{ posts: Post[]; total: number }> {
+}): Promise<{ posts: TPost[]; total: number }> {
   const allPosts = await getPosts();
 
   // Get a subset of posts pased on page and limit
@@ -110,8 +120,8 @@ export async function getPaginatedPostsByCategory({
 }: {
   page: number;
   limit: number;
-  category: TCategory;
-}): Promise<{ posts: Post[]; total: number }> {
+  category: TCategory['id'];
+}): Promise<{ posts: TPost[]; total: number }> {
   const allCategoryPosts = await getPostsByCategory({ category });
 
   // Get a subset of posts pased on page and limit

@@ -14,10 +14,9 @@ export function H1({ children }: Props) {
         aria-label="go back to blog's main page"
         id="back-link"
       >
-        <ArrowLeft size="1rem" /> Back to Posts
+        <ArrowLeft size="1rem" /> Back to all posts
       </Link>
       <LinkedHeading><h1>{children}</h1></LinkedHeading>
-
     </div>
   );
 }

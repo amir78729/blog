@@ -1,31 +1,12 @@
-import { type Post } from "@/posts";
-import Link from "next/link";
+import { type TPost } from "@/posts";
 import s from './Posts.module.css'
-import { Calendar } from "lucide-react";
-import Tags from "@/components/Tags";
+import { Post } from "@/components/Post";
 
-export function Posts({ posts }: { posts: Post[] }) {
+
+export function Posts({ posts }: { posts: TPost[] }) {
     return (
         <div className={s.container}>
-            {posts.map(({ slug, publishDate, categories, content, title }, i) => {
-                const a11yLabel = [
-                    `visit "${title}" post.`,
-                    `published at ${new Date(publishDate).toDateString()}.`,
-                    categories ? `about ${categories.join(' and ')}` : null,
-                ].join(' ')
-
-                return (
-
-                    <Link className={s.card} key={slug} href={`/post/${slug}`} aria-label={a11yLabel} >
-                        <p className={s.date} aria-hidden="true">
-                            <span><Calendar size={16} /></span> {new Date(publishDate).toDateString()}
-                        </p>
-                        <h2>{title}</h2>
-                        <Tags categories={categories} />
-                    </Link>
-
-                )
-            })}
+            {posts.map((post) => <Post key={post.slug} {...post} />)}
         </div>
     );
 }

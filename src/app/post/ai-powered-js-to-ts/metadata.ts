@@ -3,8 +3,9 @@ import { Metadata } from "@/app/types";
 
 export default {
   categories: [
-    Categories.EXPLORE,
-    Categories.WATCH,
+    Categories.FRONT_END,
+    Categories.AI,
   ],
+  isDraft: true,
   publishDate: new Date("2025/6/12"),
 } as Metadata;

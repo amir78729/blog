@@ -305,10 +305,11 @@ footer,
 }
 .chip {
   padding: 0.125rem 0.5rem;
-  font-size: 0.5rem;
-  background: var(--primary);
-  color: var(--primary-foreground);
+  font-size: 0.75rem;
+  border: 1px solid var(--primary);
+  color: var(--primary);
   border-radius: 99999px;
+  text-decoration: none;
 }
 
 a,
@@ -326,7 +327,7 @@ a {
   color: var(--blue);
 }
 
-h1 {
+h1, h2 {
   line-height: 1.2;
 }
 

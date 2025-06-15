@@ -1,0 +1,92 @@
+.container {
+    position: relative;
+    height: 7rem;
+    width: 15rem;
+    margin: auto;
+    overflow: hidden;
+}
+
+.js {
+    background: #EFD81B;
+    color: #000;
+    animation: js-anim 2s infinite linear;
+    font-size: 1.25rem;
+}
+
+@keyframes js-anim {
+    from {
+        /* opacity: 0; */
+        transform: translate(-300%, -50%);
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    50% {
+        transform: translate(-50%, -50%);
+    }
+
+    to {
+        transform: translate(-50%, -50%);
+    }
+}
+
+.ai.box {
+    color: white;
+    background: black;
+    border: 0.25rem solid white;
+    transform: translate(-50%, -50%);
+    height: 5rem;
+    width: 5rem;
+    font-size: 1.5rem;
+}
+
+.ts {
+    background: #387CC8;
+    color: white;
+    animation: ts-anim 2s infinite linear;
+    font-size: 1.25rem;
+}
+
+
+@keyframes ts-anim {
+    from {
+        transform: translate(-50%, -50%);
+    }
+
+    50% {
+        transform: translate(-50%, -50%);
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    to {
+        transform: translate(200%, -50%);
+        /* opacity: 0; */
+    }
+}
+
+.logo {
+    margin: 1rem 0 0 1rem;
+}
+
+.box {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 4rem;
+    width: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .container {
+    display: none;
+  }
+}

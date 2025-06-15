@@ -12,7 +12,7 @@ import { notFound, redirect } from "next/navigation";
 export default async function Page({
   params,
 }: {
-  params: { category: TCategory; page: number };
+  params: { category: TCategory['id']; page: number };
 }) {
   let { category, page } = params;
   page = Number(page);
@@ -49,11 +49,11 @@ export default async function Page({
 export async function generateStaticParams() {
   const paths = await Promise.all(
     Object.values(Categories).map(async (category) => {
-      const posts = await getPostsByCategory({ category });
+      const posts = await getPostsByCategory({ category: category.id });
       const pages = Math.ceil(posts.length / postsPerPage);
 
       return [...Array(pages)].map((_, i) => ({
-        category,
+        category: category.id,
         page: `${i + 1}`,
       }));
     })

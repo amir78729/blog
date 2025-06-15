@@ -14,7 +14,7 @@ type Props = {
 const AppProvider = ({ children }: Props) => {
     const [zenMode, setZenMode] = React.useState(false);
     const path = usePathname();
-    const isMainPage = path === '/'
+    const isMainPage = !path.startsWith('/post')
 
     const toggleZenMode = () => {
         setZenMode(z => !z)
