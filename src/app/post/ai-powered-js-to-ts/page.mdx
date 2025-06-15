@@ -12,4 +12,22 @@ import JsToTs from "./components/JsToTs";
 
 ## Tools
 
+### Dependency Graph
+
+- [dependency-cruiser](https://npmjs.com/package/dependency-cruiser)
+- [madge](https://npmjs.com/package/madge)
+- [@typescript-tools/dependency-graph](https://npmjs.com/package/@typescript-tools/dependency-graph)
+- [glslify-deps](https://npmjs.com/package/glslify-deps)
+
+We chose `madge` based on it's Github stars and API.
+
+Using madge we can easily find leaf nodes using the following command:
+
+```bash
+pnpm madge --extensions js,jsx,ts,tsx --exclude "(css|scss|gif|svg)$" --ts-config ./tsconfig.json --leaves .
+```
+
+### AI Tools
+
+
 ## Implementation

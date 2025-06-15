@@ -1,28 +1,32 @@
-import { Link } from 'lucide-react';
-import { DetailedHTMLProps, HTMLAttributes } from 'react';
+import { Link } from "lucide-react";
+import { type DetailedHTMLProps, type HTMLAttributes } from "react";
 
-type Props = DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>
+type Props = DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
 
 export function LinkedHeading({ children }: Props) {
-    // @ts-expect-error 
-    const headingContent = children?.props?.children?.toString();
+  // @ts-expect-error fix
+  const headingContent = children?.props?.children?.toString();
 
-    const id = headingContent.replaceAll(' ', '-').toLowerCase();
+  const id = headingContent.replaceAll(" ", "-").toLowerCase();
 
-    const renderLinkIcon = () => (
-        <a 
-            aria-label={`navigate to "${headingContent}" section`}
-            className='heading-link' 
-            href={`#${id}`}
-        >
-            <Link size="0.75rem" />
-        </a>
-    )
-    return (
-        <div className='heading'>
-            <div id={id} className='content'>
-                {children} {renderLinkIcon()}
-            </div>
-        </div>
-    );
+  const renderLinkIcon = () => (
+    <a
+      aria-label={`navigate to "${headingContent}" section`}
+      className="heading-link"
+      href={`#${id}`}
+    >
+      <Link size="0.75rem" />
+    </a>
+  );
+
+  return (
+    <div className="heading">
+      <div
+        id={id}
+        className="content"
+      >
+        {children} {renderLinkIcon()}
+      </div>
+    </div>
+  );
 }

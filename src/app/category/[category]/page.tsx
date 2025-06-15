@@ -1,19 +1,15 @@
-
-import { Categories } from "@/app/constants";
-import { TCategory } from "@/app/types";
-import { H1 } from "@/components/md-override";
-import Pagination from "@/components/Pagination";
-import { Posts } from "@/components/Posts/Posts";
-import {
-  getPaginatedPostsByCategory,
-  postsPerPage,
-} from "@/posts";
+import { Categories } from "@/app/constants.tsx";
+import { type TCategory } from "@/app/types.ts";
+import { H1 } from "@/components/md-override/index.ts";
+import Pagination from "@/components/Pagination/index.ts";
+import Posts from "@/components/Posts/index.ts";
+import { getPaginatedPostsByCategory, postsPerPage } from "@/posts.ts";
 import { notFound } from "next/navigation";
 
 export default async function Category({
   params,
 }: {
-  params: { category: TCategory['id'] };
+  params: { category: TCategory["id"] };
 }) {
   const { category } = params;
 
@@ -29,7 +25,13 @@ export default async function Category({
   return (
     <>
       <H1>Blog</H1>
-      <p>Posts with <b>{Categories[category].icon} {Categories[category].name}</b> Category:</p>
+      <p>
+        Posts with{" "}
+        <b>
+          {Categories[category].icon} {Categories[category].name}
+        </b>{" "}
+        Category:
+      </p>
       <Posts posts={posts} />
       <Pagination
         baseUrl={`/category/${category}/page`}
@@ -42,7 +44,7 @@ export default async function Category({
 }
 
 export function generateStaticParams() {
-  return Object.values(Categories).map((category) => ({
+  return Object.values(Categories).map(category => ({
     category: category.id,
   }));
 }

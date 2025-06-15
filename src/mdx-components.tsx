@@ -1,5 +1,13 @@
+import {
+  A,
+  H1,
+  H2,
+  H3,
+  H4,
+  Img,
+  Table,
+} from "@/components/md-override/index.ts";
 import type { MDXComponents } from "mdx/types";
-import { H1, H2, H3, H4, Img, Table, A } from "@/components/md-override";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {

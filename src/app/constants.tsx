@@ -2,26 +2,26 @@ export const Categories = {
   TECH: {
     id: "TECH",
     name: "Tech",
-    icon: "👨‍💻"
+    icon: <span aria-hidden="true">👨‍💻</span>,
   },
   EXPLORE: {
     id: "EXPLORE",
     name: "Explore",
-    icon: "🧭"
+    icon: <span aria-hidden="true">🧭</span>,
   },
   WATCH: {
     id: "WATCH",
     name: "Watch",
-    icon: "⌚"
+    icon: <span aria-hidden="true">⌚</span>,
   },
   FRONT_END: {
     id: "FRONT_END",
     name: "Front-end",
-    icon: "💻"
+    icon: <span aria-hidden="true">💻</span>,
   },
   AI: {
     id: "AI",
     name: "Artificial Intelligence",
-    icon: "✨"
+    icon: <span aria-hidden="true">✨</span>,
   },
 } as const;

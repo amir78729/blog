@@ -1,17 +1,19 @@
 import { readdir, readFile } from "fs/promises";
 import path from "path";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeSlug from "rehype-slug";
 import rehypeStringify from "rehype-stringify";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
-import { Metadata, TCategory } from "./app/types";
+import { type Metadata, type TCategory } from "./app/types.ts";
 
 export type TPost = Metadata & {
   slug: string;
   title: string;
   content: string;
-}
+};
 
 export const postsPerPage = 5 as const;
 
@@ -19,23 +21,24 @@ export async function getPosts(): Promise<TPost[]> {
   // Retreive slugs from post routes
   const slugs = (
     await readdir("./src/app/post", { withFileTypes: true })
-  ).filter((dirent) => dirent.isDirectory());
+  ).filter(dirent => dirent.isDirectory());
 
   // Retreive metadata from MDX files
   const allPosts = await Promise.all(
-    slugs
-    .map(async ({ name }) => {
+    slugs.map(async ({ name }) => {
       const filePath = path.join(
         process.cwd(),
         "src/app/post",
         name,
-        "page.mdx"
+        "page.mdx",
       );
 
       let title;
 
       const mdContent = await readFile(filePath, "utf-8");
       const htmlContent = await unified()
+        .use(rehypeSlug)
+        .use(rehypeAutolinkHeadings)
         .use(remarkParse)
         .use(remarkRehype)
         .use(remarkFrontmatter, ["yaml", "toml"])
@@ -43,9 +46,10 @@ export async function getPosts(): Promise<TPost[]> {
         .use(() => {
           return function (tree: Node) {
             // @ts-expect-error fix
-            const h1Metadata = tree.children.find((c) => c.tagName === "h1");
+            const h1Metadata = tree.children.find(c => c.tagName === "h1");
+
             // @ts-expect-error fix
-            title = h1Metadata.children.find((x) => x.type === "text").value;
+            title = h1Metadata.children.find(x => x.type === "text").value;
           };
         })
         .use(rehypeStringify)
@@ -61,21 +65,21 @@ export async function getPosts(): Promise<TPost[]> {
         title,
         ...metadata,
       };
-    })
+    }),
   );
 
   // Sort posts from newest to oldest
   allPosts.sort((a, b) => +new Date(b.publishDate) - +new Date(a.publishDate));
 
-  const filteredPosts = allPosts.filter(({isDraft}) => {
+  const filteredPosts = allPosts.filter(({ isDraft }) => {
     // All posts are visible in dev mode
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === "development") {
       return true;
     }
 
     // But in other envs, we should check if the post is not draft!
-    return !isDraft
-  })
+    return !isDraft;
+  });
 
   return filteredPosts;
 }
@@ -83,13 +87,13 @@ export async function getPosts(): Promise<TPost[]> {
 export async function getPostsByCategory({
   category,
 }: {
-  category: TCategory['id'];
+  category: TCategory["id"];
 }): Promise<TPost[]> {
   const allPosts = await getPosts();
 
   // Filter posts by specified category
-  const posts = allPosts.filter(
-    (post) => post.categories?.find(c => c.id === category)
+  const posts = allPosts.filter(post =>
+    post.categories?.find(c => c.id === category),
   );
 
   return posts;
@@ -120,14 +124,14 @@ export async function getPaginatedPostsByCategory({
 }: {
   page: number;
   limit: number;
-  category: TCategory['id'];
+  category: TCategory["id"];
 }): Promise<{ posts: TPost[]; total: number }> {
   const allCategoryPosts = await getPostsByCategory({ category });
 
   // Get a subset of posts pased on page and limit
   const paginatedCategoryPosts = allCategoryPosts.slice(
     (page - 1) * limit,
-    page * limit
+    page * limit,
   );
 
   return {

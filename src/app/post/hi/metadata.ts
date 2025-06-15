@@ -1,4 +1,4 @@
-import { Metadata } from "@/app/types";
+import { type Metadata } from "@/app/types.ts";
 
 export default {
   categories: [],

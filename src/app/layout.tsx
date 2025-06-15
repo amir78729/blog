@@ -1,6 +1,6 @@
-import "./global.css";
+import AppProvider from "@/components/AppProvider.tsx";
 import type { Metadata } from "next";
-import AppProvider from "@/components/AppProvider";
+import "./global.css";
 
 export const metadata: Metadata = {
   title: "Blog | Amirhossein Alibakhshi",
@@ -12,7 +12,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      suppressHydrationWarning
+    >
       <body>
         <AppProvider>{children}</AppProvider>
       </body>

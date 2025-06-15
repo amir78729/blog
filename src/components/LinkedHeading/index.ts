@@ -1,1 +1,1 @@
-export { LinkedHeading } from "./LinkedHeading";
+export { LinkedHeading } from "./LinkedHeading.tsx";

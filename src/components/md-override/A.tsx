@@ -1,10 +1,16 @@
-import React, { AnchorHTMLAttributes, DetailedHTMLProps } from "react";
+import { type AnchorHTMLAttributes, type DetailedHTMLProps } from "react";
 
-type Props = DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>
+type Props = DetailedHTMLProps<
+  AnchorHTMLAttributes<HTMLAnchorElement>,
+  HTMLAnchorElement
+>;
 
 export function A({ children, ...restProps }: Props) {
   return (
-    <a target="_blank" {...restProps}>
+    <a
+      target="_blank"
+      {...restProps}
+    >
       {children}
     </a>
   );

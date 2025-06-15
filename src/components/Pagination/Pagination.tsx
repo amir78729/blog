@@ -28,9 +28,8 @@
 //   );
 // }
 
-
-import Link from "next/link";
 import classNames from "classnames";
+import Link from "next/link";
 import s from "./Pagination.module.css"; // adjust this to your actual style module
 
 export default function Pagination({
@@ -46,16 +45,25 @@ export default function Pagination({
 }) {
   const totalPages = Math.ceil(total / perPage);
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+
   if (pageNumbers.length === 1) {
-    return null
+    return null;
   }
 
   return (
-    <nav className={s.container} aria-labelledby="pagination">
-      <h2 id="pagination" className="sr-only">Pagination</h2>
+    <nav
+      className={s.container}
+      aria-labelledby="pagination"
+    >
+      <h2
+        id="pagination"
+        className="sr-only"
+      >
+        Pagination
+      </h2>
 
       <ul className={s.pageList}>
-        {pageNumbers.map((pageNumber) => (
+        {pageNumbers.map(pageNumber => (
           <li key={pageNumber}>
             {pageNumber === page ? (
               <span
@@ -65,7 +73,10 @@ export default function Pagination({
                 {pageNumber}
               </span>
             ) : (
-              <Link className={s.item} href={`${baseUrl}/${pageNumber}`}>
+              <Link
+                className={s.item}
+                href={`${baseUrl}/${pageNumber}`}
+              >
                 {pageNumber}
               </Link>
             )}

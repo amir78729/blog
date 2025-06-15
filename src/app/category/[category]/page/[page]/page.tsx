@@ -1,25 +1,27 @@
-import { Categories } from "@/app/constants";
-import { TCategory } from "@/app/types";
-import Pagination from "@/components/Pagination";
-import { Posts } from "@/components/Posts/Posts";
+import { Categories } from "@/app/constants.tsx";
+import { type TCategory } from "@/app/types.ts";
+import Pagination from "@/components/Pagination/index.ts";
+import Posts from "@/components/Posts/index.ts";
 import {
   getPaginatedPostsByCategory,
   getPostsByCategory,
   postsPerPage,
-} from "@/posts";
+} from "@/posts.ts";
 import { notFound, redirect } from "next/navigation";
 
 export default async function Page({
   params,
 }: {
-  params: { category: TCategory['id']; page: number };
+  params: { category: TCategory["id"]; page: number };
 }) {
-  let { category, page } = params;
+  const { category } = params;
+  let { page } = params;
+
   page = Number(page);
 
   if (page < 1) notFound();
 
-  if (page == 1) redirect(`/category/${category}`);
+  if (page === 1) redirect(`/category/${category}`);
 
   const { posts, total } = await getPaginatedPostsByCategory({
     category,
@@ -48,7 +50,7 @@ export default async function Page({
 
 export async function generateStaticParams() {
   const paths = await Promise.all(
-    Object.values(Categories).map(async (category) => {
+    Object.values(Categories).map(async category => {
       const posts = await getPostsByCategory({ category: category.id });
       const pages = Math.ceil(posts.length / postsPerPage);
 
@@ -56,7 +58,7 @@ export async function generateStaticParams() {
         category: category.id,
         page: `${i + 1}`,
       }));
-    })
+    }),
   );
 
   return paths.flat();
