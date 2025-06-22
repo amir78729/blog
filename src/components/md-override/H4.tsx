@@ -1,5 +1,5 @@
 import React from "react";
-import { LinkedHeading } from "../LinkedHeading/index.ts";
+import LinkedHeading from "../LinkedHeading/index.ts";
 
 type Props = {
   children?: React.ReactNode;

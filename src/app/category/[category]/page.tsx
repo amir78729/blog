@@ -1,7 +1,7 @@
 import { Categories } from "@/app/constants.tsx";
 import { type TCategory } from "@/app/types.ts";
 import { H1 } from "@/components/md-override/index.ts";
-import Pagination from "@/components/Pagination/index.ts";
+import { Pagination } from "@/components";
 import Posts from "@/components/Posts/index.ts";
 import { getPaginatedPostsByCategory, postsPerPage } from "@/posts.ts";
 import { notFound } from "next/navigation";

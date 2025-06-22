@@ -1,6 +1,6 @@
 import { Categories } from "@/app/constants.tsx";
 import { type TCategory } from "@/app/types.ts";
-import Pagination from "@/components/Pagination/index.ts";
+import { Pagination } from "@/components";
 import Posts from "@/components/Posts/index.ts";
 import {
   getPaginatedPostsByCategory,

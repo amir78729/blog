@@ -59,18 +59,6 @@ export default config(
     },
   },
   {
-    files: ["*", "!internals/danger/**/*"],
-    rules: {
-      "import/extensions": [
-        "error",
-        "always",
-        {
-          ignorePackages: true,
-        },
-      ],
-    },
-  },
-  {
     rules: {
       "no-alert": "error",
       "prefer-const": "error",

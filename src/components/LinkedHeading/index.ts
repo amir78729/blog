@@ -1,1 +1,3 @@
-export { LinkedHeading } from "./LinkedHeading.tsx";
+import LinkedHeading from "./LinkedHeading.tsx";
+
+export default LinkedHeading;

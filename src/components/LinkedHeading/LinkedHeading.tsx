@@ -3,7 +3,7 @@ import { type DetailedHTMLProps, type HTMLAttributes } from "react";
 
 type Props = DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
 
-export function LinkedHeading({ children }: Props) {
+export default function LinkedHeading({ children }: Props) {
   // @ts-expect-error fix
   const headingContent = children?.props?.children?.toString();
 

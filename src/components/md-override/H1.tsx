@@ -1,6 +1,6 @@
+import { LinkedHeading } from "@/components";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import { LinkedHeading } from "../LinkedHeading/index.ts";
 
 type Props = {
   children?: React.ReactNode;

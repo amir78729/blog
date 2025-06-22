@@ -1,4 +1,4 @@
-import Pagination from "@/components/Pagination/index.ts";
+import { Pagination } from "@/components";
 import Posts from "@/components/Posts/index.ts";
 import { getPaginatedPosts, postsPerPage } from "@/posts.ts";
 
