@@ -7,6 +7,7 @@ import remarkFrontmatter from "remark-frontmatter";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
+
 import { type Metadata, type TCategory } from "./app/types.ts";
 
 export type TPost = Metadata & {
@@ -34,6 +35,7 @@ export async function getPosts(): Promise<TPost[]> {
       );
 
       let title;
+      const headings = [];
 
       const mdContent = await readFile(filePath, "utf-8");
       const htmlContent = await unified()

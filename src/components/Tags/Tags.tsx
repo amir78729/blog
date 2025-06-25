@@ -2,7 +2,6 @@
 
 import { type Metadata } from "@/app/types.ts";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import s from "./Tags.module.css";
 
 type Props = {
@@ -12,12 +11,6 @@ type Props = {
 };
 
 const Tags = ({ categories, id, removeLink }: Props) => {
-  const router = useRouter();
-
-  const goToCategoryPage = (id: string) => {
-    router.push(`/category/${id}`);
-  };
-
   return (
     <ul
       aria-label="categories of the post."

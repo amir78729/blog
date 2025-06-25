@@ -8,7 +8,6 @@ type Props = DetailedHTMLProps<
 export function A({ children, ...restProps }: Props) {
   return (
     <a
-      target="_blank"
       {...restProps}
     >
       {children}

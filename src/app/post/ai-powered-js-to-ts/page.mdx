@@ -1,6 +1,7 @@
 import metadata from "./metadata.ts";
-import { Tags } from "@/components";
+import { Tags, GithubStars } from "@/components";
 import JsToTs from "./components/JsToTs";
+import { DependenctGraphTools } from "./constants";
 
 # AI Powered JS to TS Migration
 
@@ -8,16 +9,43 @@ import JsToTs from "./components/JsToTs";
 
 <JsToTs />
 
+
+
 ## Strategy
+
+The approach is to start from node files. by node we mean files which do not have a 
+dependency to a file inside the project. we chack this using imports. 
+
+we give this files to our AI tool and ask it to fix the types of the file using a appropriate prompt. then we will do the
+
+## Chalanges
+
+### Cyclic Dependencies
+
+### Change Velocity
 
 ## Tools
 
 ### Dependency Graph
 
-- [dependency-cruiser](https://npmjs.com/package/dependency-cruiser)
-- [madge](https://npmjs.com/package/madge)
-- [@typescript-tools/dependency-graph](https://npmjs.com/package/@typescript-tools/dependency-graph)
-- [glslify-deps](https://npmjs.com/package/glslify-deps)
+<div style={{ width:'100%', overflow:'auto' }}>
+    <table tabIndex="0">
+        <thead>
+            <tr>
+                <th>Package Name</th>
+                <th>Github Stars</th>
+            </tr>
+        </thead>
+        <tbody>
+            {DependenctGraphTools.map(tool => (
+                <tr key={tool.packageName}>
+                    <td><a href={tool.npm} target="_blank"><code>{tool.packageName}</code></a></td>
+                    <td><GithubStars repoUrl={tool.repo} /></td>
+                </tr>
+            ))}
+        </tbody>
+    </table>
+</div>
 
 We chose `madge` based on it's Github stars and API.
 
@@ -27,7 +55,65 @@ Using madge we can easily find leaf nodes using the following command:
 pnpm madge --extensions js,jsx,ts,tsx --exclude "(css|scss|gif|svg)$" --ts-config ./tsconfig.json --leaves .
 ```
 
+while finding leaves, we found out some of the files have no usages and are actually redundant. the we found all of these files using the following command and removed them:
+
+```bash
+pnpm madge --extensions js,jsx,ts,tsx --exclude '((^(?!src\/.*\/.*).*)|(css|scss|gif|svg|.d.ts|.test.js|.stories.tsx)$)' --ts-config ./tsconfig.json --orphans .
+```
+
 ### AI Tools
 
 
 ## Implementation
+
+### Prompting
+
+<section className="card">
+<div className="sr-only">start of the prompt</div>
+
+You are an AI agent specializing in refactoring legacy JavaScript codebases by adding TypeScript types. Your primary goal is to enhance type safety and modernize the code according to the directives below.
+
+Your Core Directives:
+- Primary Goal: In each task, you will be directed to a specific domain, starting with either an API call or a leaf component. Your responsibility is to add types to the initial target and then trace its usage throughout the codebase, propagating the new types to all consuming functions and components.
+- Preserve Logic: Your changes should primarily focus on type safety. Do not alter the core runtime logic or rename variables unless it is part of an allowed refactoring pattern described below.
+- API Data Transformation: Be aware that a middleware layer automatically converts all API response fields from snake_case (as defined in Protobuf schemas) to camelCase. Your TypeScript types must always reflect the final camelCase structure.
+- Handling Unknown Types:
+If you cannot determine the type of a property, use unknown.
+If you encounter an existing unknown type and can identify a more specific and accurate type, you must update it.
+- Type Definitions: Prefer using the type keyword over interface for defining new types. You can and should use common, pre-existing types located in the @/src/types/ directory.
+- Error Handling: If you encounter a `@ts-expect-error` comment that is no longer necessary because you have fixed the underlying type issue, you should remove the comment and apply the correct types.
+- Validation (Optional): You can validate your changes in a specific file by running the command tsc \{filepath\} to check for any type errors.
+
+Allowed Refactoring Patterns:
+- Default Props: If you see a React component using Component.defaultProps to define default values, you must refactor it to use ES6 default parameters in the function signature.
+
+For example, refactor this:
+
+```js
+const Button = ({ size, color }) => {
+  return <button style={{ color, fontSize: size }}>Click me</button>;
+};
+
+Button.defaultProps = {
+  size: "16px",
+  color: "blue",
+};
+```
+
+into this:
+
+```ts
+const Button = ({ size = "16px", color = "blue" }) => {
+  return <button style={{ color, fontSize: size }}>Click me</button>;
+};
+```
+
+
+> [!NOTE]
+> DO NOT CHANGE THE LOGICS!
+
+Here is your Task:
+fix the types of `<FUNCTION_NAME>` function in `<FILE_PATH>`.
+
+<div className="sr-only">end of the prompt</div>
+</section>

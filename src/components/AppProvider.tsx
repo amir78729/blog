@@ -50,14 +50,22 @@ const AppProvider = ({ children }: Props) => {
         )}
       </div>
       {!isMainPage && (
-        <button
-          id="zen-button"
-          aria-label="this button will hide some elements in the screen and only the main content will be visible. you can ignore this button in case you are using a screen reader"
-          onClick={toggleZenMode}
-        >
-          <span id="zen-button-text">Zen Mode</span>
-          <Focus id="zen-button-icon" />
-        </button>
+        <div className="row">
+          {/* <button
+            id="toc-button"
+            aria-label="click to show the table of contents"
+          >
+            <TableOfContents id="toc-button-icon" />
+          </button> */}
+          <button
+            id="zen-button"
+            aria-label="this button will hide some elements in the screen and only the main content will be visible. you can ignore this button in case you are using a screen reader"
+            onClick={toggleZenMode}
+          >
+            <span id="zen-button-text">Zen Mode</span>
+            <Focus id="zen-button-icon" />
+          </button>
+        </div>
       )}
     </header>
   );

@@ -1,10 +1,20 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui,
-    helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial,
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    avenir next,
+    avenir,
+    segoe ui,
+    helvetica neue,
+    helvetica,
+    Cantarell,
+    Ubuntu,
+    roboto,
+    noto,
+    arial,
     sans-serif;
-  --yellow: #cd7c3b;
   --max-width: 600px;
   --radius: 0.625rem;
   --card: oklch(1 0 0);
@@ -261,29 +271,52 @@ footer {
   transition: width 0.3s;
   cursor: pointer;
 }
+#toc-button {
+  display: flex;
+  align-items: center;
+  background: transparent;
+  border: none;
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+  transition: width 0.3s;
+  cursor: pointer;
+}
 #zen-button-icon {
   padding: 0.25rem;
   border-radius: var(--radius-sm);
   transform: rotate(0);
   transition: transform 0.3s;
 }
+#toc-button-icon {
+  padding: 0.25rem;
+  border-radius: var(--radius-sm);
+}
 
 footer,
+.toc,
+#back-link,
 #breadcrumb {
   transition: opacity 0.3s;
 }
 
 #back-link {
-    position: absolute;
-    top: 0;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.75rem;
-    transform: translateY(calc(-100% - 0.5rem));
-    color: #fff7;
-    opacity: 1;
-    transition: opacity 0.3;
+  position: absolute;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  transform: translateY(calc(-100% - 0.5rem));
+  color: #fff7;
+  opacity: 1;
+  transition: opacity 0.3;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem
 }
 
 a,
@@ -301,7 +334,8 @@ a {
   color: var(--cta, #02b7ff);
 }
 
-h1, h2 {
+h1,
+h2 {
   line-height: 1.2;
 }
 
@@ -359,6 +393,41 @@ th {
 
 abbr {
   cursor: help;
+}
+
+blockquote {
+  margin: 1rem 0;
+  padding-inline-start: 1.4rem;
+  border-radius: 0.25rem;
+  border-inline-start: 0.25rem solid var(--blockquote-border-color, #444);
+}
+blockquote .blockquote-title {
+  color: var(--blockquote-border-color);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+blockquote.note {
+  --blockquote-border-color: #2f81f7;
+}
+blockquote.warning {
+  --blockquote-border-color: #cd7c3b;
+}
+blockquote.tip {
+  --blockquote-border-color: #3fb950;
+}
+blockquote.important {
+  --blockquote-border-color: #ab7df8;
+}
+blockquote.caution {
+  --blockquote-border-color: #f85149;
+}
+
+@media screen and (max-width: 850px) {
+  :root {
+    --max-width: 500px;
+  }
 }
 
 @media screen and (min-width: 768px) {
@@ -428,16 +497,9 @@ li::marker {
   }
 }
 
-
-
-
-
-
-
-
-
 .zen-mode .heading .heading-link,
 .zen-mode footer,
+.zen-mode .toc,
 .zen-mode #back-link,
 .zen-mode #breadcrumb,
 .zen-mode #zen-button-text {
@@ -450,4 +512,71 @@ li::marker {
 .zen-mode #zen-button-icon {
   transform: rotate(90deg);
   background: var(--background);
+}
+
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+
+pre code.hljs {
+  display: block;
+
+  background: var(--card);
+  padding: 1rem;
+  border-radius: var(--radius);
+}
+
+::-webkit-scrollbar {
+  width: 0.25rem;
+  height: 0.25rem;
+}
+::-webkit-scrollbar-track {
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #444;
+}
+
+
+
+
+
+.toc {
+  position: fixed;
+  right: 0;
+  top: 0;
+  padding-top: 5rem;
+  bottom: 0;
+  width: calc((100dvw - var(--max-width)) / 2);
+  max-height: 100%;
+  overflow: scroll;
+}
+.toc:has(.toc-item)::before {
+  content: "On this page";
+}
+
+.toc .toc-item {
+  list-style-type: none;
+}
+
+.toc .toc-item a {
+  color: #ffffffaa;
+  text-decoration: none;
+}
+
+.toc-level.toc-level-1 {
+  padding-left: 0;
+}
+.toc-level {
+  padding-left: 1rem;
+}
+@media screen and (max-width: 768px) {
+  .toc {
+    display: none;
+  }
 }

@@ -1,4 +1,5 @@
 import AppProvider from "@/components/AppProvider.tsx";
+import "highlight.js/styles/github-dark.css"; // or any other theme you prefer
 import type { Metadata } from "next";
 import "./global.css";
 

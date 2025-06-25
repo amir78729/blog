@@ -1,12 +1,11 @@
 import { LinkedHeading } from "@/components";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { type DetailedHTMLProps, type HTMLAttributes } from "react";
 
-type Props = {
-  children?: React.ReactNode;
-};
+type Props = DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
 
-export function H1({ children }: Props) {
+export function H1({ children, id }: Props) {
   return (
     <div style={{ position: "relative" }}>
       <Link
@@ -16,7 +15,7 @@ export function H1({ children }: Props) {
       >
         <ArrowLeft size="1rem" /> Back to all posts
       </Link>
-      <LinkedHeading>
+      <LinkedHeading id={id}>
         <h1>{children}</h1>
       </LinkedHeading>
     </div>

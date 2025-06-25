@@ -1,4 +1,6 @@
 export * from "./A.tsx";
+export * from "./Blockquote.tsx";
+export * from "./Code.tsx";
 export * from "./H1.tsx";
 export * from "./H2.tsx";
 export * from "./H3.tsx";

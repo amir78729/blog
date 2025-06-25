@@ -1,13 +1,11 @@
-import React from "react";
+import { type DetailedHTMLProps, type HTMLAttributes } from "react";
 import LinkedHeading from "../LinkedHeading/index.ts";
 
-type Props = {
-  children?: React.ReactNode;
-};
+type Props = DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
 
-export function H4({ children }: Props) {
+export function H4({ children, id }: Props) {
   return (
-    <LinkedHeading>
+    <LinkedHeading id={id}>
       <h4>{children}</h4>
     </LinkedHeading>
   );

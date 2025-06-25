@@ -1,5 +1,7 @@
 import {
   A,
+  Blockquote,
+  Code,
   H1,
   H2,
   H3,
@@ -18,6 +20,8 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h4: H4,
     img: Img,
     table: Table,
+    blockquote: Blockquote,
+    code: Code,
     ...components,
   };
 }
