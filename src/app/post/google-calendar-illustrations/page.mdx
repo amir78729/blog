@@ -1,0 +1,75 @@
+import metadata from "./metadata.ts";
+import { PostMetadata, LinkedHeading, Img } from "@/components";
+import { illustrationsInfo } from "./constants.ts";
+import { Head } from "next";
+
+# Make your Google Calendar Events Alive!
+
+<PostMetadata metadata={metadata} />
+
+One of the best tools for scheduling and increasing order in life is using a calendar that can be accessed at any moment. In my opinion, one of the best tools in this category is [Google Calendar](https://calendar.google.com/), which requires nothing more than a Google account to use. Users can plan through the web, mobile, or even their smartwatch with this service, and with the help of reminder messages, they can have a more organized and beautiful life!
+
+For someone like me who places great importance on the <abbr title="User Interface">UI</abbr> and <abbr title="User Experience">UX</abbr> of services they use, Google Calendar offers an attractive feature that, as far as I know, hasn't been discussed in detail and doesn't have official documentation; that is, depending on the name chosen for each event in this calendar, a graphic design appropriate to that name is selected for the event.
+
+![A moka pot next to a cup image appeared as the event image after setting "Coffee" for the event title.](/assets/google-calendar-illustrations/coffee.webp)
+
+
+## How Can I See This Feature?
+
+In the web version, just click on one of these events to see the design I'm
+talking about. For mobile, in addition to selecting each event, if your calendar
+is in "Schedule" mode, the relevant image will be displayed.
+
+## How to Set Images for Google Calendar Events?
+
+Well, I know 2 ways:
+- Setting location for the Event
+- Setting specific title for the Event
+
+### Set Images by Setting Event Location
+
+if you define a location for such events, instead of a design, the event's location will be displayed on the map or photos registered for that place in Google Maps as the event design.
+
+In the image below, you can see an event that takes place at Milad Tower in Tehran. Google Calendar has selected this image for it using the event's location.
+
+![Settign Milad Tower photo as the event's image by setting the location of the event to Milad Tower](/assets/google-calendar-illustrations/milad-tower.jpg)
+
+> [!NOTE]
+> At the time of writing this post, this feature is only available in the mobile version of Google Calendar.
+
+
+
+### Set Images by Specific Event Titles
+
+As I said, there is no official and precise documentation for which name choices
+can display which designs (at least I haven't found anything at the time of
+writing this post!); as a result, I've tried to list the names I've found in this
+post so that you can also use this cool Google Calendar feature if you
+wish.
+
+{Object.entries(illustrationsInfo).map(([key, {title, words}]) => (
+    <div key={key} >
+        <LinkedHeading id={key}>
+            <h3>{title}</h3>
+        </LinkedHeading>
+
+        <p>If you name your calendar event</p>
+
+        <ul>{words.split(', ').map(w => (
+            <li key={w}>{w}</li>    
+        ))}</ul>
+
+        <p>the event image will turn to:</p>
+
+        <Img src={`https://ssl.gstatic.com/tmly/f8944938hffheth4ew890ht4i8/flairs/xxhdpi/img_${key}.jpg`} alt={`The image will be shown on your Google Calendar event when you set event title to ${words}.`}/>
+    </div>
+))}
+
+## Resources
+
+In this section, I provide you with more complete sources that I used to prepare this list. 
+
+Sources:
+- https://theintelligence.com/20085/google-calendar-codewords/
+- http://www.internetbestsecrets.com/2019/09/google-calendar-event-images.html
+- https://github.com/mifran/google-calendar-image-keyword?tab=readme-ov-file

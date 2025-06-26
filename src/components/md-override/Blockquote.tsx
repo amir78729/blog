@@ -9,6 +9,7 @@ import { type DetailedHTMLProps, type HTMLAttributes } from "react";
 
 export const BlockquoteVariant = {
   NOTE: "[!NOTE]",
+  VIRGOOL: "[!VIRGOOL]",
   WARNING: "[!WARNING]",
   TIP: "[!TIP]",
   IMPORTANT: "[!IMPORTANT]",

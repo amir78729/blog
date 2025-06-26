@@ -6,11 +6,5 @@ type Props = DetailedHTMLProps<
 >;
 
 export function A({ children, ...restProps }: Props) {
-  return (
-    <a
-      {...restProps}
-    >
-      {children}
-    </a>
-  );
+  return <a {...restProps}>{children}</a>;
 }

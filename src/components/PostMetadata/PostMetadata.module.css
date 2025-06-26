@@ -1,0 +1,10 @@
+.container {
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.container > * {
+  min-height: 1.5rem;
+}

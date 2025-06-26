@@ -6,4 +6,5 @@ export type Metadata = {
   isDraft?: boolean;
   categories: TCategory[];
   publishDate: Date;
+  virgool?: string;
 };
