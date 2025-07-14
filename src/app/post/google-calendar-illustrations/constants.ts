@@ -106,35 +106,35 @@ export const illustrationsInfo = {
     words:
       "piano, singing, music Class, choir practice, flute, orchestra, oboe, clarinet, saxophone, cornett, trumpet, contrabass, cello, trombone, tuba, music ensemble, string quartett, guitar lesson, trombone,classical music, choir",
   },
-  learnlanguage: {
-    title: "Learn Language",
-    words:
-      "French Course, German Course, English Course, French Class, German Class, English Class, Practice French, Practice German, Practice English, ...",
-  },
+  // learnlanguage: {
+  //   title: "Learn Language",
+  //   words:
+  //     "French Course, German Course, English Course, French Class, German Class, English Class, Practice French, Practice German, Practice English, ...",
+  // },
   lunch: {
     title: "Lunch",
     words: "lunch, lunches, luncheon",
   },
-  manicure: {
-    title: "Manicure",
-    words: "manicure, pedicure, manicures, pedicures",
-  },
+  // manicure: {
+  //   title: "Manicure",
+  //   words: "manicure, pedicure, manicures, pedicures",
+  // },
   massage: {
     title: "Massage",
     words: "massage, back rub, backrub, massages",
   },
-  newyear: {
-    title: "New Year",
-    words: "new year, new year's, new years",
-  },
+  // newyear: {
+  //   title: "New Year",
+  //   words: "new year, new year's, new years",
+  // },
   nowruz: {
     title: "Nowruz 🌱",
     words: "Nowruz",
   },
-  oilchange: {
-    title: "Oil Change",
-    words: "oil change, car service",
-  },
+  // oilchange: {
+  //   title: "Oil Change",
+  //   words: "oil change, car service",
+  // },
   pingpong: {
     title: "Ping-Pong",
     words: "ping pong, table tennis, ping-pong, pingpong",

@@ -61,7 +61,13 @@ wish.
 
         <p>the event image will turn to:</p>
 
-        <Img src={`https://ssl.gstatic.com/tmly/f8944938hffheth4ew890ht4i8/flairs/xxhdpi/img_${key}.jpg`} alt={`The image will be shown on your Google Calendar event when you set event title to ${words}.`}/>
+        <span id={`${key}-old`}>Old version</span>
+        <Img aria-labelledby={`${key}-old`} src={`https://ssl.gstatic.com/tmly/f8944938hffheth4ew890ht4i8/flairs/xxhdpi/img_${key}.jpg`} alt={`The image will be shown on your Google Calendar event when you set event title to ${words}.`}/>
+
+
+        <span id={`${key}-2024-2`}>2024 version</span>
+        <Img aria-labelledby={`${key}-2024-2`} src={`https://ssl.gstatic.com/calendar/images/eventillustrations/2024_v2/img_${key}.svg`} alt={`The image will be shown on your Google Calendar event when you set event title to ${words}.`}/>
+
     </div>
 ))}
 
