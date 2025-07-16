@@ -4,6 +4,11 @@ export const Categories = {
     name: "Tech",
     icon: <span aria-hidden="true">👨‍💻</span>,
   },
+  DX: {
+    id: "DX",
+    name: "Development Experience",
+    icon: <span aria-hidden="true">👨‍💻</span>,
+  },
   IOT: {
     id: "IOT",
     name: "Internet of Things",
