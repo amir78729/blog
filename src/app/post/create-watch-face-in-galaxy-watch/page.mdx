@@ -1,5 +1,10 @@
 import metadata from "./metadata.ts";
+import { getPostSeoData } from "../../utils.ts";
 import { PostMetadata } from "@/components";
+
+export async function generateMetadata() {
+  return getPostSeoData(metadata);
+}
 
 <div style={{ '--cta': '#f79c2e'}}>
 

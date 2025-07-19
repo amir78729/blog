@@ -2,6 +2,7 @@ import { Categories } from "@/app/constants";
 import { type Metadata } from "@/app/types.ts";
 
 export default {
+  title: "Make your Google Calendar Events Alive!",
   categories: [Categories.EXPLORE],
   publishDate: new Date("2024/2/1"),
   virgool:

@@ -1,56 +1,82 @@
 import metadata from "./metadata.ts";
+import { getPostSeoData } from "../../utils.ts";
 import { PostMetadata } from "@/components";
 
-<div style={{ '--cta': '#f79c2e'}}>
+export async function generateMetadata() {
+  return getPostSeoData(metadata);
+}
 
-# How We Made Danger JS Work Better for Our Teams at Tap30
+<div style={{ '--cta': '#07ab38'}}>
+
+# How We Made Danger JS Work Better for Our Teams
 
 <PostMetadata metadata={metadata} />
 
-At Tap30, we have multiple frontend teams (or “tribes”) working on different parts of our products. One thing we all have in common? We deal with merge requests that need to follow some basic rules, like:
+At Tapsi, we have multiple frontend teams (or "tribes") working on different
+parts of our products. One thing we all have in common? We deal with merge
+requests that need to follow some basic rules, like:
 
-* Did you update the changelog?
-* Is this MR too big?
-* Did you forget to assign reviewers?
+- Does a new feature has tests?
+- Did you update the changelog?
+- Is this MR too big?
+- Did you forget to assign reviewers?
 
-We've been using [Danger JS](https://danger.systems/js/) to automate these checks in our CI pipelines. But after a while, our `dangerfile.ts` started to look... messy.
-Different teams had different rules, the logic was scattered, and nobody really wanted to touch that file. Sound familiar?
+We've been using [Danger JS](https://danger.systems/js/) to automate these
+checks in our CI pipelines. But after a while, our `dangerfile.ts` started to
+look... messy. Different teams had different rules, the logic was scattered, and
+nobody really wanted to touch that file. Sound familiar?
 
-### The Problem
+## The Problem
 
-Out-of-the-box, Danger JS is great for small projects or teams with simple needs. But in a company with multiple teams, each with their own standards, it quickly becomes a maintenance nightmare.
+Danger JS is great for small projects or teams with simple needs. But in a
+company with multiple teams, each with their own standards, it quickly becomes a
+maintenance nightmare.
 
 We needed something:
 
-* Modular
-* Easy to extend
-* Flexible enough that each team could plug in their own rules
+- Modular
+- Easy to extend
+- Flexible enough that each team could plug in their own rules
 
-### So I Built a Plugin-Based Framework
+## Plugin-Based Framework
 
-We open-sourced it here if you want to check it out:
-👉 [https://github.com/Tap30/danger](https://github.com/Tap30/danger)
+We open-sourced it here if you want to check it out: 👉
+[https://github.com/Tap30/danger](https://github.com/Tap30/danger)
 
-Basically, we wrapped Danger JS with a plugin system — inspired by how tools like ESLint or Vite let you extend functionality cleanly.
+Basically, we wrapped Danger JS with a plugin system — inspired by how tools
+like ESLint or Vite let you extend functionality cleanly.
 
-### What This Looks Like
+## What This Looks Like
 
-Instead of dumping everything in `dangerfile.ts`, you write self-contained plugins:
+Instead of dumping everything in `dangerfile.ts`, you write self-contained
+plugins:
 
 ```ts
-const mergeRequestSizePlugin = createPlugin<{ size?: number }>((client, options) => {
-  const threshold = options?.size || 200;
-  const filesChanged = [...client.git.modified_files, ...client.git.created_files];
-  
-  if (filesChanged.length > threshold) {
-    client.warn(`Whoa, that's a big MR: ${filesChanged.length} files changed!`);
-  }
-});
+const mergeRequestSizePlugin = createPlugin<{ size?: number }>(
+  (client, options) => {
+    const threshold = options?.size || 200;
+    const filesChanged = [
+      ...client.git.modified_files,
+      ...client.git.created_files,
+    ];
+
+    if (filesChanged.length > threshold) {
+      client.warn(
+        `Whoa, that's a big MR: ${filesChanged.length} files changed!`,
+      );
+    }
+  },
+);
 ```
 
 Then in your `dangerfile.ts`:
 
 ```ts
+import danger from "danger";
+import DangerClient from "@tapsioss/danger";
+
+const dangerClient = new DangerClient(danger);
+
 dangerClient
   .use(mergeRequestSizePlugin, { size: 100 })
   .use(yourOtherPlugin)
@@ -61,54 +87,50 @@ dangerClient.analyze();
 
 Simple, clean, and easy to read.
 
----
-
 ## Why This Was a Game-Changer for Us
 
 ### Teams Became Self-Sufficient
 
-Each tribe could write and maintain their own plugins without worrying about breaking someone else's checks.
+Each tribe could write and maintain their own plugins without worrying about
+breaking someone else's checks. (Shared plugins are published as packages in
+organization's registery.)
 
 ### Better Visibility
 
-Instead of scrolling through hundreds of lines of conditionals, you just look at the plugin list to know what's being checked.
+Instead of scrolling through hundreds of lines of conditionals, you just look at
+the plugin list to know what's being checked.
 
 ### Faster Onboarding
 
-New devs didn't have to understand “the giant Dangerfile” anymore. They could just peek at the plugin folder and see real examples.
+New devs didn't have to understand "the giant Dangerfile" anymore. They could
+just peek at the plugin folder and see real examples.
 
 ### Easier to Test
 
-Since plugins are just functions, writing unit tests for them was super straightforward.
-
----
+Since plugins are just functions, writing unit tests for them was super
+straightforward.
 
 ## The Impact
 
-Before this, people would often ignore the Danger checks because they weren't sure what was running or why it failed. Now:
+Before this, people would often ignore the Danger checks because they weren't
+sure what was running or why it failed. Now:
 
-* The rules are clear.
-* Teams have ownership of their checks.
-* And the CI feedback actually helps, rather than annoys.
-
----
+- The rules are clear.
+- Teams have ownership of their checks.
+- And the CI feedback actually helps, rather than annoys.
 
 ## What's Next?
 
 I'm thinking about:
 
-* Adding conditional plugins (like: run this check only if the MR touches certain files)
-* A CLI to list all available plugins with descriptions
-* Maybe caching results between runs to make it faster
-
----
+- Adding conditional plugins (like: run this check only if the MR touches
+  certain files)
+- A CLI to list all available plugins with descriptions
+- Maybe caching results between runs to make it faster
 
 ## Wanna Try It?
 
-It's open source:
-👉 [https://github.com/Tap30/danger](https://github.com/Tap30/danger)
-
-Would love to hear feedback, ideas, or contributions — or just chat about CI tooling in general.
-
+It's open source: 👉
+[https://github.com/Tap30/danger](https://github.com/Tap30/danger)
 
 </div>
